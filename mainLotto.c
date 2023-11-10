@@ -1,10 +1,12 @@
 #include <stdio.h>
+#include <stdbool.h>
 
+/*
 short getShort(			//[out] user input 
 	char text[])		//[in] question for user input
 {
 	short value;		//user input
-	int finished = 0;	//flag for correct user input 
+	int finished = false;	//flag for correct user input 
 	char ch;			//character behind number 
 	int retVal;			//return value of scanf 
 
@@ -17,7 +19,7 @@ short getShort(			//[out] user input
 		// check for valid user input 
 		if (retVal != 2) printf("Das war keine korrekte Zahl!\n");
 		else if (ch != '\n') printf("Unerwartete Zeichen hinter der Zahl!\n");
-		else finished = 1; 
+		else finished = true;
 
 		//clear input stream
 		while (ch != '\n') scanf("%c", &ch); 
@@ -28,13 +30,54 @@ short getShort(			//[out] user input
 	return value; 
 
 }
+*/
+
+short getShortMinMax(			//[out] user input 
+	char text[],
+	int min,
+	int max)		//[in] question for user input
+{
+	short value;		//user input
+	bool finished = false;	//flag for correct user input 
+	char ch;			//character behind number 
+	int retVal;			//return value of scanf 
+
+	do {
+		//get user input 
+		printf("%s: ", text); 
+		ch = '\0'; 
+		retVal = scanf("%hd%c", &value, &ch); 
+
+	
+
+		// check for valid user input 
+		if (retVal != 2) printf("Das war keine korrekte Zahl!\n");
+		else if (ch != '\n') printf("Unerwartete Zeichen hinter der Zahl!\n");
+		else if (!(value >= min) && !(value <= max)) printf("Zahl muss zwischen 1 und 49 liegen.\n");
+		else finished = true;
+
+		//clear input stream
+		while (ch != '\n') scanf("%c", &ch); 
+	// repeat if not finished
+	} while (!finished); 
+
+	//return user input
+	return value; 
+
+}
+
+
 int main() {
+
+	getShortMinMax("Welceh Zahl?", 1, 49);
+
+
 	// neue Funktion um Lottozahlen abzufragen 
 
 		//Funktion nutzen um Lottozahlen abzufragen 
 		// in Array speichern 
 
-		// weiteren Array machen mit zufälligen Lottozahlen 
+		// weiteren Array machen mit zufï¿½lligen Lottozahlen 
 		// darauf achten, dass keine Lottozahlen doppelt gespeichert werden 
 		// einfaches if-else 
 
