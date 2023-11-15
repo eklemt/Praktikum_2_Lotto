@@ -2,37 +2,7 @@
 
 #include <stdio.h>
 #include <stdbool.h>
-
-/*
-short getShort(			//[out] user input 
-	char text[])		//[in] question for user input
-{
-	short value;		//user input
-	int finished = false;	//flag for correct user input 
-	char ch;			//character behind number 
-	int retVal;			//return value of scanf 
-
-	do {
-		//get user input 
-		printf("%s: ", text); 
-		ch = '\0'; 
-		retVal = scanf("%hd%c", &value, &ch); 
-
-		// check for valid user input 
-		if (retVal != 2) printf("Das war keine korrekte Zahl!\n");
-		else if (ch != '\n') printf("Unerwartete Zeichen hinter der Zahl!\n");
-		else finished = true;
-
-		//clear input stream
-		while (ch != '\n') scanf("%c", &ch); 
-	// repeat if not finished
-	} while (!finished); 
-
-	//return user input
-	return value; 
-
-}
-*/
+#include <stdlib.h>
 
 short getShortMinMax(			//[out] user input 
 	char text[],
@@ -130,6 +100,7 @@ int main() {
 				zahlZumEinlesen = getShortMinMax("Gib einen weiteren Tipp ab", untereGrenze, obereGrenze);
 				for (int k = 0; k < 6; k++) {
 					if (zahlZumEinlesen == getippteLottozahlen[k]) {
+						printf("Die Zahl hattest du schonmal getippt!");
 						k += 6;
 						keinNeuerWert = true;
 					}
@@ -157,28 +128,54 @@ int main() {
 		if (n % 7 == 0) printf("\n");
 	}
 	for (int p = 0; p < 6; p++) {
-		printf("%d,", getippteLottozahlen[p]);
+		printf("Liste der eingegebenen Zahlen: %d,\n", getippteLottozahlen[p]);
 	}
 
-	
+	int gezogeneZahlen[6]; 
+	int maxGezogeneZahlen = 6; 
+	ersterDurchlauf = true; 
+	int random = 0; 
+	srand(time(NULL)); // Initialisieren der random Funktion 
+
+	for (int q = 0; q < maxGezogeneZahlen; q++) {
+		if (ersterDurchlauf) {
+			random = rand() % 49; //Begrenzung bis 49, er fängt bei 1 an 
+			ersterDurchlauf = false;
+		}
+		else {
+			bool keinNeuerWert = true;
+			while (keinNeuerWert) {
+				keinNeuerWert = false; 
+				random = rand() % 49; //Begrenzung bis 49, er fängt bei 1 an 
+				for (int r = 0; r < 6; r++) {
+					if (random == gezogeneZahlen[r]) {
+						keinNeuerWert = true; 
+					}
+				}
+			}
+		}
+		gezogeneZahlen[q] = random; 
+	}
+	for (int s = 0; s < 6; s++) {
+		printf("Liste der gezogenen Zahlen: %d,\n", gezogeneZahlen[s]); 
+	}
 
 
-	// neue Funktion um Lottozahlen abzufragen 
-
-		//Funktion nutzen um Lottozahlen abzufragen 
-		// in Array speichern 
-
-		// weiteren Array machen mit zuf�lligen Lottozahlen 
-		// darauf achten, dass keine Lottozahlen doppelt gespeichert werden 
-		// einfaches if-else 
-
-		//richtige Zahlen mit Gewinnquote bestimmen 
-		// Arrays mit einander vergleichen 
 	int anzahlRichtige = 0;
-
-	//Gewinnquote bestimmen 
+	for (int t = 0; t < 6; t++) {
+		for (int u = 0; u < 6; u++) {
+			if (gezogeneZahlen[t] == getippteLottozahlen[u]) {
+				anzahlRichtige++; 
+				u += 6; 
+			}
+		}
+	} 
+	printf("Anzahl der richtig getippten: %d\n", anzahlRichtige); 
+	
 	if (anzahlRichtige == 2)
 		printf("2 Richtige getippt. Du hast 5 Euro gewonnen.\n");
+	else if (anzahlRichtige == 1)
+		printf("Lottospielen ist doof, man gewinnt mit einem richtigen Leider nichts!"); 
 	else if (anzahlRichtige == 3)
 		printf("3 Richtige getippt. Du hast 50 Euro gewonnen\n");
 	else if (anzahlRichtige == 4)
