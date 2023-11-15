@@ -52,8 +52,7 @@ int main() {
 	bool ersterDurchlauf = true; //erster Durchlauf der Lottozahlen
 
 	for (int i = 0; i < maxTips; i++) {
-
-
+		system("cls"); 
 		printf("Du tippst gerade deine %d. Lottozahl von 6:\n", i + 1);
 
 		if (ersterDurchlauf) {
@@ -113,6 +112,7 @@ int main() {
 			printf("%d\n", getippteLottozahlen[i]);
 		}
 	}
+	system("cls"); 
 	// fertigen Lottoschein ausgeben 
 	printf("Lottoschein;\n");
 	for (int n = 1; n <= 49; n++) {
@@ -127,8 +127,16 @@ int main() {
 		if (zahlMitX) printf("x");
 		if (n % 7 == 0) printf("\n");
 	}
+	printf("\n\nListe der eingegebenen Zahlen:");
+	ersterDurchlauf = true;
 	for (int p = 0; p < 6; p++) {
-		printf("Liste der eingegebenen Zahlen: %d,\n", getippteLottozahlen[p]);
+		if (ersterDurchlauf) {
+			printf("%d", getippteLottozahlen[p]);
+			ersterDurchlauf = false;
+		}
+		else {
+			printf(",%d", getippteLottozahlen[p]);
+		}
 	}
 
 	int gezogeneZahlen[6]; 
@@ -156,8 +164,16 @@ int main() {
 		}
 		gezogeneZahlen[q] = random; 
 	}
+	printf("\nListe der gezogenen Zahlen:");
+	ersterDurchlauf = true; 
 	for (int s = 0; s < 6; s++) {
-		printf("Liste der gezogenen Zahlen: %d,\n", gezogeneZahlen[s]); 
+		if (ersterDurchlauf) {
+			printf("%d", gezogeneZahlen[s]);
+			ersterDurchlauf = false; 
+		}
+		else {
+			printf(",%d", gezogeneZahlen[s]);
+		}
 	}
 
 
@@ -170,7 +186,7 @@ int main() {
 			}
 		}
 	} 
-	printf("Anzahl der richtig getippten: %d\n", anzahlRichtige); 
+	printf("\n\nAnzahl der richtig getippten: %d\n", anzahlRichtige); 
 	
 	if (anzahlRichtige == 2)
 		printf("2 Richtige getippt. Du hast 5 Euro gewonnen.\n");
