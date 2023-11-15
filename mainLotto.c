@@ -53,7 +53,7 @@ short getShortMinMax(			//[out] user input
 		// check for valid user input 
 		if (retVal != 2) printf("Das war keine korrekte Zahl!\n");
 		else if (ch != '\n') printf("Unerwartete Zeichen hinter der Zahl!\n");
-		else if (!(value >= min) && !(value <= max)) printf("Zahl muss zwischen 1 und 49 liegen.\n");
+		else if (value < min || value > max) printf("Zahl muss zwischen 1 und 49 liegen.\n");
 		else finished = true;
 
 		//clear input stream
@@ -69,7 +69,51 @@ short getShortMinMax(			//[out] user input
 
 int main() {
 
-	getShortMinMax("Welceh Zahl?", 1, 49);
+	int getippteLottozahlen[6];
+	int maxTips = 6;
+	int untereGrenze = 1;
+	int obereGrenze = 49;
+	
+
+	printf("Bitte tippe 6 Lottozahlen:\n");
+
+	for(int i = 0; i < maxTips-1; i++) {
+		bool ersterDurchlauf = true;
+
+		printf("Du tippst gerade deine %d. Lottozahl von 6:", i+1);
+
+		if(ersterDurchlauf) {
+			//Lottoschein grafisch anzeigen
+			for(i = 1; i <= 49; i++) {
+				if (i % 7 == 0) {
+					printf("%d\n", i);
+				} else {
+					printf("%d", i);
+				}
+			}
+			//
+
+			int tip = getShortMinMax("Bitte gib eine Zahl zwischen 1 und 49 ein", untereGrenze, obereGrenze);
+
+			getippteLottozahlen[i] = tip;
+
+
+
+
+
+
+			ersterDurchlauf = false;
+		}
+
+
+		
+	}
+
+      printf("%d ", getippteLottozahlen[0]);
+
+
+
+	
 
 
 	// neue Funktion um Lottozahlen abzufragen 
