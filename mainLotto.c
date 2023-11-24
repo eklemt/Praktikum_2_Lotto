@@ -14,11 +14,12 @@ Version:		1
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <time.h>
 
 // Deklaration 
-short einlesenEinerZahl(char text[],int min,int max);
-void gibEinenLottoscheinAus(int array[]);
-bool istInArray(int zahl, int array[]);
+short einlesenEinerZahl(char text[], short min, short max);
+void gibEinenLottoscheinAus(short array[]);
+bool istInArray(short zahl, short array[]);
 
 int main() {
 
@@ -28,8 +29,8 @@ int main() {
 	short obereGrenze = 49; // Definition der oberen Grenze des Tipzahlenbereiches
 
 	// *** //
-	printf("Willkommen bei 6 aus 49. Du kannst 6 Zahlen zwischen 1 und 49 tippen. Im Anschluss siehst du, ob und wieviel du gewonnen hast.\n\n\n");
-	printf("Bitte tippe nun deine 6 Lottozahlen:\n\n\n\n");
+	printf("Willkommen bei 6 aus 49. Du kannst 6 Zahlen zwischen 1 und 49 tippen. Im Anschluss siehst du, ob und wieviel du gewonnen hast.\n\n");
+	printf("Bitte tippe nun deine 6 Lottozahlen:\n\n");
 	// *** //
 
 	bool ersterDurchlauf = true; //erster Durchlauf der Lottozahlen
@@ -39,8 +40,8 @@ int main() {
 
 		if (ersterDurchlauf) {
 			//Lottoschein grafisch anzeigen
-			gibEinenLottoscheinAus(getippteLottozahlen); 
-			printf("\n\n");
+			gibEinenLottoscheinAus(getippteLottozahlen);
+			printf("\n");
 
 			// Abfrage eines Lottotips und Abpeichern des Rückgabewerts in tip
 			short tip = einlesenEinerZahl("Bitte gib eine Zahl zwischen 1 und 49 ein", untereGrenze, obereGrenze);
@@ -76,13 +77,13 @@ int main() {
 			getippteLottozahlen[i] = tip;
 		}
 
-	// Konsole übersichtlich aufräumen vor jedem neuen Schleifendurchlauf
-	system("cls");
+		// Konsole übersichtlich aufräumen vor jedem neuen Schleifendurchlauf
+		system("cls");
 
 	}
 
 	// Konsole vor Ergebnisausgabe aufräumen
-	system("cls"); 
+	system("cls");
 
 	// Ausgabe: fertigen Lottoschein mit X-Markierung der getippten Zahlen ausgeben 
 	gibEinenLottoscheinAus(getippteLottozahlen);
@@ -107,30 +108,27 @@ int main() {
 	*/
 
 	short gezogeneZahlen[6]; // Array für Zahlen, die zufällig als Gewinnzahlen gezogen werden 
-	ersterDurchlauf = true; 
+	ersterDurchlauf = true;
 	short zufälligeZahl = 0; // Zufällig gezogene Zahl 
-	srand(time(NULL)); // Initialisieren der random Funktion 
+	srand((unsigned int)time(NULL)); // Initialisieren der random Funktion 
 
 	for (int q = 0; q < maxTips; q++) {
 		bool keinNeuerWert = true;
 		while (keinNeuerWert) {
-			keinNeuerWert = false; 
-			zufälligeZahl = rand() % 50; //Begrenzung bis 49
-			keinNeuerWert = istInArray(zufälligeZahl, gezogeneZahlen); 
-			if (zufälligeZahl == 0) { //die zufällig gezogene Zahl darf nicht 0 sei
-				keinNeuerWert = true; 
-			}
+			keinNeuerWert = false;
+			zufälligeZahl = rand() % 50 +1; //Begrenzung bis 49
+			keinNeuerWert = istInArray(zufälligeZahl, gezogeneZahlen);
 		}
-		gezogeneZahlen[q] = zufälligeZahl; 
+		gezogeneZahlen[q] = zufälligeZahl;
 	}
 
 	//Ausgabe: Liste aller gezogenen Zahlen
 	printf("\nListe der gezogenen Zahlen: ");
-	ersterDurchlauf = true; 
+	ersterDurchlauf = true;
 	for (int s = 0; s < 6; s++) {
 		if (ersterDurchlauf) {
 			printf("%d", gezogeneZahlen[s]);
-			ersterDurchlauf = false; 
+			ersterDurchlauf = false;
 		}
 		else {
 			printf(",%d", gezogeneZahlen[s]);
@@ -138,7 +136,7 @@ int main() {
 	}
 
 	//Bestimmung der richtig getippten Zahlen durch Vergleich der Arrays Ziehung und Tipps
-	short zuCheckendeZahl; 
+	short zuCheckendeZahl;
 	short anzahlRichtige = 0;
 	for (int t = 0; t < 6; t++) {
 		bool inArray = false;
@@ -147,15 +145,15 @@ int main() {
 		if (inArray) {
 			anzahlRichtige++;
 		}
-	} 
+	}
 	//Ausgabe: Zahl der richtigen Tipps
-	printf("\n\nAnzahl der richtig getippten: %d\n", anzahlRichtige); 
-	
+	printf("\n\nAnzahl der richtig getippten: %d\n", anzahlRichtige);
+
 	//Ausgabe: Angabe der Gewinnquote
 	if (anzahlRichtige == 2)
 		printf("2 Richtige getippt. Du hast 5 Euro gewonnen.\n");
 	else if (anzahlRichtige == 1)
-		printf("Lottospielen ist doof, man gewinnt mit einem richtigen leider nichts!\n"); 
+		printf("Lottospielen ist doof, man gewinnt mit einem richtigen leider nichts!\n");
 	else if (anzahlRichtige == 3)
 		printf("3 Richtige getippt. Du hast 50 Euro gewonnen\n");
 	else if (anzahlRichtige == 4)
@@ -166,14 +164,14 @@ int main() {
 		printf("6 Richtige getippt. Du hast 1 Million Euro im Lotto gewonnen\n");
 	else
 		printf("Du hast leider nichts gewonnen.\n");
-	return 0; 
+	return 0;
 }
 
 
-short einlesenEinerZahl(			
+short einlesenEinerZahl(
 	char text[],
 	int min,
-	int max)		
+	int max)
 {
 	short eingelesenerWert;		//eingegebene Zahl des Benutzers
 	bool fertig = false;	// Variable, die anzeigt, ob die Eingabe den Anforderungen einer Lottozahl entspricht
@@ -193,7 +191,10 @@ short einlesenEinerZahl(
 		else fertig = true;
 
 		// Input stream leeren 
-		while (ch != '\n') scanf("%c", &ch);
+		
+		while (ch != '\n') {
+			char checkChar = scanf("%c", &ch);
+		}
 		// wiederholen, wenn es nicht beendet ist 
 	} while (!fertig);
 
@@ -203,7 +204,7 @@ short einlesenEinerZahl(
 }
 
 void gibEinenLottoscheinAus( //Funktion zum Ausgeben eines Lottoscheins und markieren von bereits getippten Zahlen mit einem x 
-	int array[])
+	short array[])
 {
 	printf("Lottoschein:\n");
 	for (int l = 1; l <= 49; l++) {
@@ -222,7 +223,7 @@ void gibEinenLottoscheinAus( //Funktion zum Ausgeben eines Lottoscheins und mark
 	}
 }
 
-bool istInArray(int zahl, int array[]) { //Funktion zum Überprüfen ob eine Zahl Bestandteil eines Arrays ist 
+bool istInArray(short zahl, short array[]) { //Funktion zum Überprüfen ob eine Zahl Bestandteil eines Arrays ist 
 	bool gefunden = false;
 	for (int k = 0; (k < 6) && !gefunden; k++) {
 		if (zahl == array[k]) {
