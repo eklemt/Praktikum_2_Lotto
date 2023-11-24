@@ -110,7 +110,8 @@ int main() {
 	short gezogeneZahlen[6]; // Array für Zahlen, die zufällig als Gewinnzahlen gezogen werden 
 	ersterDurchlauf = true;
 	short zufälligeZahl = 0; // Zufällig gezogene Zahl 
-	srand((unsigned int)time(NULL)); // Initialisieren der random Funktion 
+	srand((unsigned int)time(NULL)); // Initialisieren der random Funktion
+	//srand(1);
 
 	for (int q = 0; q < maxTips; q++) {
 		bool keinNeuerWert = true;
@@ -163,15 +164,15 @@ int main() {
 	else if (anzahlRichtige == 6)
 		printf("6 Richtige getippt. Du hast 1 Million Euro im Lotto gewonnen\n");
 	else
-		printf("Du hast leider nichts gewonnen.\n");
+		printf("Du hast leider nichts gewonnen. Investier dein Geld besser in ein Sparschwein!\n");
 	return 0;
 }
 
 
 short einlesenEinerZahl(
 	char text[],
-	int min,
-	int max)
+	short min,
+	short max)
 {
 	short eingelesenerWert;		//eingegebene Zahl des Benutzers
 	bool fertig = false;	// Variable, die anzeigt, ob die Eingabe den Anforderungen einer Lottozahl entspricht
