@@ -17,7 +17,7 @@ Version:		1
 #include <time.h>
 
 // Deklaration 
-short einlesenEinerZahl(char text[], short min, short max);
+short einlesenEinerZahl(char text[], short min, short max); //Funktion der Funktion erklären 
 void gibEinenLottoscheinAus(short array[]);
 bool istInArray(short zahl, short array[]);
 
